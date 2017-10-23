@@ -1,0 +1,56 @@
+@left_panel_max_width:1354px;
+
+.left_panel{
+  width:inherit;
+  max-width: @left_panel_max_width;
+  margin: auto;
+  margin-top:@top_panel_height+10px;
+//  padding-right: @right_panel_width+10px;
+  padding-right: @right_panel_width+30px;
+  background-color: #fffff5;
+
+  .all_pizzas{
+    text-align: center;
+    padding-bottom: 30px;
+   // margin-right: @right_panel_width;
+
+    .pizza_pills{
+      display: inline-block;
+      li{
+        a{
+          color:@mainColor;
+        }
+      }
+      li.active{
+        a{
+          background-color: @mainColor;
+          color:white;
+        }
+      }
+    }
+
+    h2{
+      font-weight: bold;
+
+      span{
+        font-size: 15px;
+        background-color: @mainColor;
+      }
+    }
+    .pizza_buttons{
+      button{
+        color: @mainColor;
+      }
+      button:hover{
+        background-color: @mainColor;
+        color:white;
+      }
+    }
+  }
+
+  #pizza_list{
+    min-width:305px;
+  }
+}
+
+

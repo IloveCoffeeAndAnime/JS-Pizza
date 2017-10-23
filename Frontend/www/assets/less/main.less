@@ -1,3 +1,64 @@
-@mainColor: blue;
+@mainColor: #f0ad4e;
+@mainGrey:rgba(201,202,199,0.8);
+@mainGR:rgba(67,70,97,0.7);
+@screen-sm-min:768px;
+@right_panel_width: 350px;
+@top_panel_height:70px;
+@flag_width:90px;
+@pizza_card_height:600px;
+@bottom_inf_height:120px;
+@height:window.innerHeight;
 
+body{
+  position:relative;
+  min-width:650px;
+}
+.page_inf_holder{
+  height:@bottom_inf_height;
+  position:absolute;
+  left:0;
+  bottom:-(@bottom_inf_height+20px);
+  margin-bottom:0;
+  width:100%;
+
+  .page_inf{
+    margin-right:@right_panel_width;
+    margin-left:@flag_width+10px;
+    text-align: center;
+    font-size: 13px;
+    color:@mainGR;
+  }
+}
+
+.bottom_flag{
+  position:fixed;
+  bottom:0;
+  left:10px;
+  img{
+    height:230px;
+    width:@flag_width;
+  }
+  .discount_panel{
+    position:absolute;
+    left:0;
+    bottom:10px;
+    color:white;
+    font-weight: bold;
+    font-size: 15px;
+    text-align: center;
+    .discount_title{
+      border-bottom: 2px dotted darken(@mainColor,30%);
+      padding-bottom: 2px;
+      width:80%;
+      display: inline-block;
+    }
+    .discount_value{
+     padding-top: 5px;
+    }
+  }
+}
 @import "pizza/pizza-card";
+@import "right-pannel";
+@import 'pizza/left-pannel';
+@import "top_panel";
+@import "clearfix";
