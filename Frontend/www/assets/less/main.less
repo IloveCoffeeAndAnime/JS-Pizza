@@ -1,13 +1,12 @@
 @mainColor: #f0ad4e;
 @mainGrey:rgba(201,202,199,0.8);
-@mainGR:rgba(67,70,97,0.7);
+@mainGR:rgba(0,0,0,.7);
 @screen-sm-min:768px;
 @right_panel_width: 350px;
 @top_panel_height:70px;
 @flag_width:90px;
 @pizza_card_height:600px;
 @bottom_inf_height:120px;
-@height:window.innerHeight;
 
 body{
   position:relative;
@@ -57,8 +56,16 @@ body{
     }
   }
 }
+
+.nothing_ordered{
+  text-align:center;
+  font-size: 18px;
+  margin-top: 50px;
+  display: none;
+}
+
 @import "pizza/pizza-card";
+@import "pizza/pizza-order";
 @import "right-pannel";
 @import 'pizza/left-pannel';
 @import "top_panel";
-@import "clearfix";

@@ -10,6 +10,5 @@ $(function(){
 
     PizzaCart.initialiseCart();
     PizzaMenu.initialiseMenu();
-
-
+    PizzaCart.initializeClearCart();
 });

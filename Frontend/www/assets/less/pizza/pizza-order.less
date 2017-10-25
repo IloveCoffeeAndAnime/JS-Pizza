@@ -1,0 +1,75 @@
+
+.pizza_order {
+  position: relative;
+ height: @pizza_order_height;
+  width: @right_panel_width;
+  border-bottom: 1px solid darken(@mainGrey, 10%);
+
+  .pizza_inf {
+    width: 85%;
+    margin: 0;
+    .pizza_name {
+      color: darken(@mainColor, 10%);
+    }
+    .pizza_features {
+      img {
+        height: @icon_size;
+        width: @icon_size;
+      }
+    }
+  }
+
+  .pizza_options {
+    //margin-top: 5px;
+
+    div{
+      display: inline-block;
+      margin-top: 5px;
+    }
+    .price span{
+      display: inline-block;
+      font-weight: bold;
+      //margin-top: 5px;
+      font-size: 16px;
+      margin-left: 10px;
+      margin-right: 15px;
+    }
+
+    .plusMin{
+
+      .quantity {
+        display: inline-block;
+        font-weight: bold;
+        color: black;
+        font-size: 16px;
+      }
+    }
+
+    button {
+      width:30px;
+      height:30px;
+      border-radius: 15px;
+      padding: 6px 1px 6px 0;
+      span {
+        font-size: 13px;
+      }
+    }
+    .remove_div{
+      height: 30px;
+      margin-left: 30px;
+      .remove {
+        color: @mainColor;
+        border-color: #ccc;
+        margin-bottom: 0;
+      }
+    }
+  }
+  .pizza_photo {
+    position: absolute;
+    right: -@right_panel_width*0.15;
+    top: @pizza_order_height*0.1;
+    img {
+      height: @pizza_order_height*0.8;
+    }
+  }
+}

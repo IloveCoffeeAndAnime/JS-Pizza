@@ -15,97 +15,96 @@
 
 </head>
 <body>
-<div id="cart"></div>
 <div class="container left_panel">
     <div class="all_pizzas">
-        <h2>Усі піци<span class="badge">8</span></h2>
+        <h2><span class="filter_title">Усі піци</span><span class="filter_pizza_count badge">8</span></h2>
         <ul class="pizza_pills nav nav-pills">
-            <li role="presentation" class="active"><a href="#">Усі</a></li>
-            <li role="presentation"><a href="#">М'ясні</a></li>
-            <li role="presentation"><a href="#">З ананасами</a></li>
-            <li role="presentation"><a href="#">З грибами</a></li>
-            <li role="presentation"><a href="#">З морепродуктами</a></li>
-            <li role="presentation"><a href="#">Вега</a></li>
+            <li role="presentation" class="active" id="all"><a href="#">Усі</a></li>
+            <li role="presentation" id="meat"><a href="#">М'ясні</a></li>
+            <li role="presentation" id="pineapple"><a href="#">З ананасами</a></li>
+            <li role="presentation" id="mushroom"><a href="#">З грибами</a></li>
+            <li role="presentation" id="ocean"><a href="#">З морепродуктами</a></li>
+            <li role="presentation" id="vega"><a href="#">Вега</a></li>
         </ul>
     </div>
     <div class="row" id="pizza_list">
-        <div class="col-md-6 col-lg-4 pizza-card">
-        <div class="thumbnail ">
-            <img src="assets/images/pizza_1.jpg">
-            <span class="inf_pizza label label-success">Популярна</span>
-            <div class="caption">
-                <h3>Міксовий поло</h3>
-                <div class="pizza_type">М'ясна піца</div>
-                <p>Бекон, Шинка, Цибуля, Моцарела, Гриби, Огірок маринованний, Часниковий соус</p>
-                <div class="row">
-                    <div class="pizzaType col-sm-6">
-                        <div><img src="assets/images/size-icon.svg" class="icon"><span>30</span></div>
-                        <div><img src="assets/images/weight.svg" class="icon"><span>370</span></div>
-                        <div class="price">99<p>грн.</p></div>
-                        <a href="#" class="btn btn-warning">Купити</a>
-                    </div>
-                    <div class="pizzaType col-sm-6">
-                        <div><img src="assets/images/size-icon.svg" class="icon"><span>30</span></div>
-                        <div><img src="assets/images/weight.svg" class="icon"><span>370</span></div>
-                        <div class="price">99<p>грн.</p></div>
-                        <a href="#" class="btn btn-warning">Купити</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
+        <!--<div class="col-md-6 col-lg-4 pizza-card">-->
+        <!--<div class="thumbnail ">-->
+            <!--<img src="assets/images/pizza_1.jpg">-->
+            <!--<span class="inf_pizza label label-success">Популярна</span>-->
+            <!--<div class="caption">-->
+                <!--<h3>Міксовий поло</h3>-->
+                <!--<div class="pizza_type">М'ясна піца</div>-->
+                <!--<p>Бекон, Шинка, Цибуля, Моцарела, Гриби, Огірок маринованний, Часниковий соус</p>-->
+                <!--<div class="row">-->
+                    <!--<div class="pizzaType col-sm-6">-->
+                        <!--<div><img src="assets/images/size-icon.svg" class="icon"><span>30</span></div>-->
+                        <!--<div><img src="assets/images/weight.svg" class="icon"><span>370</span></div>-->
+                        <!--<div class="price">99<p>грн.</p></div>-->
+                        <!--<a href="#" class="btn btn-warning">Купити</a>-->
+                    <!--</div>-->
+                    <!--<div class="pizzaType col-sm-6">-->
+                        <!--<div><img src="assets/images/size-icon.svg" class="icon"><span>30</span></div>-->
+                        <!--<div><img src="assets/images/weight.svg" class="icon"><span>370</span></div>-->
+                        <!--<div class="price">99<p>грн.</p></div>-->
+                        <!--<a href="#" class="btn btn-warning">Купити</a>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <!--</div>-->
 
-        <div class="col-md-6 col-lg-4 pizza-card">
-            <div class="thumbnail ">
-                <img src="assets/images/pizza_1.jpg">
-                <span class="inf_pizza label label-success">Популярна</span>
-                <div class="caption">
-                    <h3>Міксовий поло</h3>
-                    <div class="pizza_type">М'ясна піца</div>
-                    <p>Бекон, Шинка, Цибуля, Моцарела, Гриби, Огірок маринованний, Часниковий соус</p>
-                    <div class="row">
-                        <div class="pizzaType col-sm-6">
-                            <div><img src="assets/images/size-icon.svg" class="icon"><span>30</span></div>
-                            <div><img src="assets/images/weight.svg" class="icon"><span>370</span></div>
-                            <div class="price">99<p>грн.</p></div>
-                            <a href="#" class="btn btn-warning">Купити</a>
-                        </div>
-                        <div class="pizzaType col-sm-6">
-                            <div><img src="assets/images/size-icon.svg" class="icon"><span>30</span></div>
-                            <div><img src="assets/images/weight.svg" class="icon"><span>370</span></div>
-                            <div class="price">99<p>грн.</p></div>
-                            <a href="#" class="btn btn-warning">Купити</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--<div class="col-md-6 col-lg-4 pizza-card">-->
+            <!--<div class="thumbnail ">-->
+                <!--<img src="assets/images/pizza_1.jpg">-->
+                <!--<span class="inf_pizza label label-success">Популярна</span>-->
+                <!--<div class="caption">-->
+                    <!--<h3>Міксовий поло</h3>-->
+                    <!--<div class="pizza_type">М'ясна піца</div>-->
+                    <!--<p>Бекон, Шинка, Цибуля, Моцарела, Гриби, Огірок маринованний, Часниковий соус</p>-->
+                    <!--<div class="row">-->
+                        <!--<div class="pizzaType col-sm-6">-->
+                            <!--<div><img src="assets/images/size-icon.svg" class="icon"><span>30</span></div>-->
+                            <!--<div><img src="assets/images/weight.svg" class="icon"><span>370</span></div>-->
+                            <!--<div class="price">99<p>грн.</p></div>-->
+                            <!--<a href="#" class="btn btn-warning">Купити</a>-->
+                        <!--</div>-->
+                        <!--<div class="pizzaType col-sm-6">-->
+                            <!--<div><img src="assets/images/size-icon.svg" class="icon"><span>30</span></div>-->
+                            <!--<div><img src="assets/images/weight.svg" class="icon"><span>370</span></div>-->
+                            <!--<div class="price">99<p>грн.</p></div>-->
+                            <!--<a href="#" class="btn btn-warning">Купити</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
 
-        <div class="col-md-6 col-lg-4 pizza-card">
-            <div class="thumbnail">
-                <img src="assets/images/pizza_1.jpg">
-                <span class="inf_pizza label label-success">Популярна</span>
-                <div class="caption">
-                    <h3>Міксовий поло</h3>
-                    <div class="pizza_type">М'ясна піца</div>
-                    <p>Бекон, Шинка, Цибуля, Моцарела, Гриби, Огірок маринованний, Часниковий соус</p>
-                    <div class="row">
-                        <div class="pizzaType col-sm-6">
-                            <div><img src="assets/images/size-icon.svg" class="icon"><span>30</span></div>
-                            <div><img src="assets/images/weight.svg" class="icon"><span>370</span></div>
-                            <div class="price">99<p>грн.</p></div>
-                            <a href="#" class="btn btn-warning">Купити</a>
-                        </div>
-                        <div class="pizzaType col-sm-6">
-                            <div><img src="assets/images/size-icon.svg" class="icon"><span>30</span></div>
-                            <div><img src="assets/images/weight.svg" class="icon"><span>370</span></div>
-                            <div class="price">99<p>грн.</p></div>
-                            <a href="#" class="btn btn-warning">Купити</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--<div class="col-md-6 col-lg-4 pizza-card">-->
+            <!--<div class="thumbnail">-->
+                <!--<img src="assets/images/pizza_1.jpg">-->
+                <!--<span class="inf_pizza label label-success">Популярна</span>-->
+                <!--<div class="caption">-->
+                    <!--<h3>Міксовий поло</h3>-->
+                    <!--<div class="pizza_type">М'ясна піца</div>-->
+                    <!--<p>Бекон, Шинка, Цибуля, Моцарела, Гриби, Огірок маринованний, Часниковий соус</p>-->
+                    <!--<div class="row">-->
+                        <!--<div class="pizzaType col-sm-6">-->
+                            <!--<div><img src="assets/images/size-icon.svg" class="icon"><span>30</span></div>-->
+                            <!--<div><img src="assets/images/weight.svg" class="icon"><span>370</span></div>-->
+                            <!--<div class="price">99<p>грн.</p></div>-->
+                            <!--<a href="#" class="btn btn-warning">Купити</a>-->
+                        <!--</div>-->
+                        <!--<div class="pizzaType col-sm-6">-->
+                            <!--<div><img src="assets/images/size-icon.svg" class="icon"><span>30</span></div>-->
+                            <!--<div><img src="assets/images/weight.svg" class="icon"><span>370</span></div>-->
+                            <!--<div class="price">99<p>грн.</p></div>-->
+                            <!--<a href="#" class="btn btn-warning">Купити</a>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
 </div>
 <div class="page_inf_holder well">
@@ -136,104 +135,33 @@
     </div>
 </div>
 <div class="right_panel">
-    <div class="right_panel_middle container">
-        <div class="pizza_order">
-            <div class="pizza_inf container">
-                <h3 class="pizza_name">BBQ(Мала)</h3>
-                <div class="pizza_features row">
-                    <span class="col-xs-3"><img src="assets/images/size-icon.svg" class="icon">30</span>
-                    <span class="col-xs-4"><img src="assets/images/weight.svg" class="icon">370</span>
-                </div>
-                <div class="pizza_options row">
-                    <div class="price col-xs-3"><h5>180грн.</h5></div>
-                    <div class="plusMin col-xs-6">
-                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span></button>
-                        <h5>1</h5>
-                        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
-                    </div>
-                    <div class="col-xs-3"><button type="button" class="btn btn-default remove_btn"><span class="glyphicon glyphicon-remove"></span></button></div>
-                </div>
-            </div>
-            <div class="pizza_photo"><img src="assets/images/pizza_1.jpg"></div>
-        </div>
-        <div class="pizza_order">
-            <div class="pizza_inf container">
-                <h3 class="pizza_name">BBQ(Мала)</h3>
-                <div class="pizza_features row">
-                    <span class="col-xs-3"><img src="assets/images/size-icon.svg" class="icon">30</span>
-                    <span class="col-xs-4"><img src="assets/images/weight.svg" class="icon">370</span>
-                </div>
-                <div class="pizza_options row">
-                    <div class="price col-xs-3"><h5>180грн.</h5></div>
-                    <div class="plusMin col-xs-6">
-                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span></button>
-                        <h5>1</h5>
-                        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
-                    </div>
-                    <div class="col-xs-3"><button type="button" class="btn btn-default remove_btn"><span class="glyphicon glyphicon-remove"></span></button></div>
-                </div>
-            </div>
-            <div class="pizza_photo"><img src="assets/images/pizza_1.jpg"></div>
-        </div>
-        <div class="pizza_order">
-                <div class="pizza_inf container">
-                    <h3 class="pizza_name">BBQ(Мала)</h3>
-                    <div class="pizza_features row">
-                        <span class="col-xs-3"><img src="assets/images/size-icon.svg" class="icon">30</span>
-                        <span class="col-xs-4"><img src="assets/images/weight.svg" class="icon">370</span>
-                    </div>
-                    <div class="pizza_options row">
-                        <div class="price col-xs-3"><h5>180грн.</h5></div>
-                        <div class="plusMin col-xs-6">
-                            <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span></button>
-                            <h5>1</h5>
-                            <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
-                        </div>
-                        <div class="col-xs-3"><button type="button" class="btn btn-default remove_btn"><span class="glyphicon glyphicon-remove"></span></button></div>
-                    </div>
-                </div>
-                <div class="pizza_photo"><img src="assets/images/pizza_1.jpg"></div>
-            </div>
-        <div class="pizza_order">
-            <div class="pizza_order">
-            <div class="pizza_inf container">
-                <h3 class="pizza_name">BBQ(Мала)</h3>
-                <div class="pizza_features row">
-                    <span class="col-xs-3"><img src="assets/images/size-icon.svg" class="icon">30</span>
-                    <span class="col-xs-4"><img src="assets/images/weight.svg" class="icon">370</span>
-                </div>
-                <div class="pizza_options row">
-                    <div class="price col-xs-3"><h5>180грн.</h5></div>
-                    <div class="plusMin col-xs-6">
-                        <button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-minus"></span></button>
-                        <h5>1</h5>
-                        <button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
-                    </div>
-                    <div class="col-xs-3"><button type="button" class="btn btn-default remove_btn"><span class="glyphicon glyphicon-remove"></span></button></div>
-                </div>
-            </div>
-            <div class="pizza_photo"><img src="assets/images/pizza_1.jpg"></div>
-        </div>
-    </div>
+    <div class="right_panel_middle container" id="cart">
+       <!--<div>Пусто в холодильнику? Замовте піцу!</div>-->
     </div>
     <div class="right_panel_top">
-        <h4>Замовлення<span class="badge">3</span></h4>
+        <h4>Замовлення<span class="order_counter badge">0</span></h4>
         <span class="clear">Очистити замовлення</span>
     </div>
     <div class="right_panel_bottom container">
         <div class="row">
-            <div class="col-xs-6"><h6>Сума замовлення</h6></div>
-            <div class="col-xs-6"><h4>940 грн.</h4></div>
+            <div class="col-xs-6"><h6 class="overall_sum_title">Сума замовлення</h6></div>
+            <div class="col-xs-6 ov_sum_div"><span id="overall_sum">0</span><span> грн.</span></div>
         </div>
         <div class="order"><button type="button" class="btn btn-warning">Замовити</button></div>
     </div>
 </div>
+<div class="nothing_ordered">
+    Пусто в холодильнику?
+    <br/>
+    Замовте піцу!
+</div>
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"> </script>
 
 <!--Bootsrap JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
 <!--Own JavaScript -->
-<!--<script type="text/javascript"  src="assets/js/main.js"> </script>-->
+<script type="text/javascript"  src="assets/js/main.js"> </script>
 </body>
 </html>
