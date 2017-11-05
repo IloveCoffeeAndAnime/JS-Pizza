@@ -1,0 +1,42 @@
+<% include common/header.ejs %>
+
+<!--<div class="">-->
+    <!--Main Page Content-->
+<!--</div>-->
+<div class="container left_panel">
+    <div class="all_pizzas">
+        <h2><span class="filter_title">Усі піци</span><span class="filter_pizza_count badge">8</span></h2>
+        <ul class="pizza_pills nav nav-pills">
+            <li role="presentation" class="active" id="all"><a href="#">Усі</a></li>
+            <li role="presentation" id="meat"><a href="#">М'ясні</a></li>
+            <li role="presentation" id="pineapple"><a href="#">З ананасами</a></li>
+            <li role="presentation" id="mushroom"><a href="#">З грибами</a></li>
+            <li role="presentation" id="ocean"><a href="#">З морепродуктами</a></li>
+            <li role="presentation" id="vega"><a href="#">Вега</a></li>
+        </ul>
+    </div>
+    <div class="row" id="pizza_list">
+    </div>
+</div>
+<div class="right_panel">
+<div class="right_panel_middle container" id="cart">
+    <!--<div>Пусто в холодильнику? Замовте піцу!</div>-->
+</div>
+<div class="right_panel_top">
+    <h4>Замовлення<span class="order_counter badge">0</span></h4>
+    <span class="clear">Очистити замовлення</span>
+</div>
+<div class="right_panel_bottom container">
+    <div class="row to_order">
+        <div class="col-xs-6"><h6 class="overall_sum_title">Сума замовлення</h6></div>
+        <div class="col-xs-6 ov_sum_div"><span id="overall_sum">0</span><span> грн.</span></div>
+    </div>
+    <div class="order"><button type="button" class="btn btn-warning" id="makeOrder">Замовити</button></div>
+</div>
+</div>
+<div class="nothing_ordered">
+    Пусто в холодильнику?
+    <br/>
+    Замовте піцу!
+</div>
+<% include common/footer.ejs %>

@@ -12,13 +12,11 @@
                 <span class="col-xs-4"><img src="assets/images/weight.svg" class="icon"><%= pizza[size].weight %></span>
             </div>
             <div class="pizza_options row">
-                <div class="price"><span><%= pizza[size].price %> грн.</span></div>
+                <%var allPrice =pizza[size].price*quantity %>
+                <div class="price"><span><%=allPrice %> грн.</span></div>
                 <div class="plusMin">
-                    <button type="button" class="btn btn-danger minus"><span class="glyphicon glyphicon-minus"></span></button>
                     <span class=" quantity label"><%= quantity %></span>
-                    <button type="button" class="btn btn-success plus"><span class="glyphicon glyphicon-plus"></span></button>
                 </div>
-                <div class="remove_div"><button type="button" class="btn btn-default well remove"><span class="glyphicon glyphicon-remove"></span></button></div>
             </div>
         </div>
         <div class="pizza_photo"><img src=<%= pizza.icon%>></div>

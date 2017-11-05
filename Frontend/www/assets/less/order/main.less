@@ -1,0 +1,82 @@
+
+.main-container{
+  margin-top: @top_panel_height+50px;
+  font-family: Helvetica,Arial,sans-serif;
+
+  .left_panel{
+
+    .contact_form{
+      padding-left: 30px;
+      font-size: 14px;
+     // padding-right:@right_panel_width;
+
+      .form_name {
+        font-size: 20px;
+        padding-bottom: 10px;
+
+      }
+
+      //  .number_group, .address_group, .name_group{
+      //
+      //    label{
+      //      text-align:right;
+      //      padding-top: 7px;
+      //    }
+      //    .input_holder{
+      //      float:left;
+      //
+      //      .form_input{
+      //        height: 34px;
+      //        width:100%;
+      //        padding: 6px 12px;
+      //        font-size: 14px;
+      //        border: 1px solid #ccc;
+      //        border-radius: 4px;
+      //        color: #555
+      //      }
+      //    }
+      //}
+
+      .order_summary{
+
+        .panel_warning{
+          padding: 20px;
+          border: 1px solid #eee;
+          border-left: 5px solid darken(@mainColor,10%);
+          border-radius: 3px;
+          background-color: #fff;
+        }
+      }
+    }
+
+    .next_step{
+      float: right;
+      margin-right: 10px;
+      margin-top: 15px;
+
+      div{
+        width: 110px;
+        button{
+          width:100%;
+        }
+      }
+    }
+  }
+
+  .right_panel{
+    .right_panel_middle{
+      background-color: #F5F5F5;
+    }
+
+    .order{
+      #change_order{
+        border-color: #ccc;
+        padding: 10px 16px;
+        font-size: 18px;
+        line-height: 1.3333333;
+        border-radius: 6px;
+        background-image: linear-gradient(to bottom,#fff 0,#e0e0e0 100%);
+      }
+    }
+  }
+}

@@ -33,14 +33,14 @@ function getIngredientsArray(pizza) {
             <div class="row">
                 <%if(pizza.small_size && pizza.big_size) { %>
                 <div class="pizzaType col-sm-6">
-                    <div><img src="../www/assets/images/size-icon.svg" class="icon"><span><%= pizza.small_size.size %></span></div>
-                    <div><img src="../www/assets/images/weight.svg" class="icon"><span><%= pizza.small_size.weight %></span></div>
+                    <div><img src="assets/images/size-icon.svg" class="icon"><span><%= pizza.small_size.size %></span></div>
+                    <div><img src="assets/images/weight.svg" class="icon"><span><%= pizza.small_size.weight %></span></div>
                     <div class="price"><%= pizza.small_size.price %><p>грн.</p></div>
                     <button class="btn btn-warning buy-small">Купити</button>
                 </div>
                 <div class="pizzaType col-sm-6">
-                    <div><img src="../www/assets/images/size-icon.svg" class="icon"><span><%= pizza.big_size.size %></span></div>
-                    <div><img src="../www/assets/images/weight.svg" class="icon"><span><%= pizza.big_size.weight %></span></div>
+                    <div><img src="assets/images/size-icon.svg" class="icon"><span><%= pizza.big_size.size %></span></div>
+                    <div><img src="assets/images/weight.svg" class="icon"><span><%= pizza.big_size.weight %></span></div>
                     <div class="price"><%= pizza.big_size.price %><p>грн.</p></div>
                     <button class="btn btn-warning buy-big">Купити</button>
                 </div>
@@ -55,8 +55,8 @@ function getIngredientsArray(pizza) {
                         btnClass="buy-big";
                     } %>
                 <div class="pizzaType col-sm-12">
-                    <div><img src="../www/assets/images/size-icon.svg" class="icon"><span><%= info.size%></span></div>
-                    <div><img src="../www/assets/images/weight.svg" class="icon"><span><%= info.weight%></span></div>
+                    <div><img src="assets/images/size-icon.svg" class="icon"><span><%= info.size%></span></div>
+                    <div><img src="assets/images/weight.svg" class="icon"><span><%= info.weight%></span></div>
                     <div class="price"><%= info.price %><p>грн.</p></div>
                     <button class="btn btn-warning <%= btnClass %>">Купити</button>
                 </div>

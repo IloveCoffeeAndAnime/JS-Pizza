@@ -3,6 +3,7 @@
 + */
 var Templates = require('../Templates');
 var Storage = require('../LocalStorage');
+var API = require('../API');
 //Перелік розмірів піци
 var PizzaSize = {
     Big: "big_size",
@@ -18,8 +19,8 @@ var $cart = $("#cart");
 var $clearCart =  $('.right_panel .right_panel_top .clear');
 
 var $sum = $('#overall_sum');
-var $sum_row=$('.right_panel_bottom .row');
-var $orderBtn =$('.right_panel_bottom .order button');
+var $sum_row=$('.right_panel_bottom .to_order');
+var $orderBtn =$('#makeOrder');
 var $emptyCart = $('.nothing_ordered');
 var $orderCounter = $('.right_panel .right_panel_top .order_counter');
 
@@ -69,11 +70,13 @@ function initialiseCart() {
     }
 
     updateCart();
+    initializeOrderButton();
 }
 
 function getPizzaInCart() {
     //Повертає піци які зберігаються в кошику
     return Cart;
+
 }
 
 function updateCart() {
@@ -122,6 +125,17 @@ function initializeClearCart(){
     $clearCart.click(function(){
         Cart=[];
         updateCart();
+    });
+}
+
+function initializeOrderButton(){
+    $orderBtn.click(function(){
+        API.getOrderPage(function(err,data){
+            if(err) {
+                alert("Oops:( cannot load page");
+            }
+            else console.log(data);
+        });
     });
 }
 
