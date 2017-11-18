@@ -1,7 +1,7 @@
 var Templates = require('./Templates');
 var API = require('./API');
-var Storage = require('./LocalStorage');
 var Cart = require('./pizza/PizzaCart');
+var LiqPay = require('./LiqPay');
 
 var $input_name=$('#name_input');
 var $number_input=$('#number_input');
@@ -24,8 +24,7 @@ function checkInputs(){
 
     $number_input.bind('input propertychange',function(){
         var val =$number_input.val();
-        console.log(val);
-        if(isNumber(val) && Number.parseInt(val)>=0)
+        if(isNumber(val))
             setValid($number_group);
         else
             setInvalid($number_group);
@@ -42,23 +41,30 @@ function checkInputs(){
 function setInvalid(element){
     element.addClass('has-error');
     element.removeClass('has-success');
+    element.find('.input_holder .message').show();
 }
 
 function setValid(element){
     element.addClass('has-success');
     element.removeClass('has-error');
+    element.find('.input_holder .message').hide();
 }
 
 function containsNumbers(string){
+    var val;
     for(var i=0;i<string.length;i++){
-        if(Number.parseInt(string[i])) return true;
+        val=Number.parseInt(string[i]);
+        if(val === val) return true;
     }
     return false;
 }
 
 function isNumber(val){
+    var numb=Number.parseInt(val[0]);
+    if(val[0] !=='+' && numb!==numb) return false;
     for(var i=1;i<val.length;i++){
-        if(!Number.parseInt(val[i])) return false;
+        numb=Number.parseInt(val[i]);
+        if(numb!==numb) return false;
     }
     return true;
 }
@@ -79,20 +85,42 @@ function showOneOrder(order_item){
 }
 
 function sendOrder(){
-    API.createOrder(OrderList,function(err,data){
+    var inf = {name:$input_name.val(),
+        number:$number_input.val(),
+        address:$address_input.val(),
+        orderList:OrderList
+    };
+    API.createOrder(inf,function(err,res){
         if(err)
             alert("Error while trying to send order to the server");
-        else
-            alert("Successfully sent:)");
-
+        else{
+            console.log("Successfully sent:)");
+            LiqPay.initLiqPay(res.data,res.signature);
+        }
     });
+}
+
+function everythingValid(){
+    var name= $input_name.val();
+    var number=$number_input.val();
+    var address=$address_input.val();
+  if (name==="" || containsNumbers(name))return false;
+  if (!isNumber(number)) return false;
+  if (address ==="") return false;
+    else return true;
 }
 
 function initializePage(){
     checkInputs();
     initializeOrderList();
+
     $nextBtn.click(function(){
-        sendOrder();
+        if(everythingValid()){
+            sendOrder();
+        }
     });
 }
+
 exports.initializePage=initializePage;
+exports.setValid = setValid;
+exports.setInvalid =setInvalid;

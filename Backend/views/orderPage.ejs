@@ -11,18 +11,21 @@
                                 <label for="name_input" class="col-sm-2 control-label">Ім'я</label>
                                 <div class="input_holder col-sm-10">
                                     <input type="text"  class="form_input form-control" id="name_input" placeholder="Ім'я Прізвище">
+                                    <div class="message ">Введіть ім'я без чисел</div>
                                 </div>
                             </div>
                             <div class="form-group number_group">
                                 <label for="number_input" class="col-sm-2 control-label">Телефон</label>
                                 <div class="input_holder col-sm-10">
                                     <input type="text"  class=" form_input form-control" id="number_input" placeholder="+380999999999">
+                                    <div class="message ">Введіть тільки числа або числа починаючи з "+"</div>
                                 </div>
                             </div>
                             <div class="form-group address_group">
                                 <label for="address_input" class="col-sm-2 control-label">Адреса</label>
                                 <div class="input_holder col-sm-10">
                                     <input type="text"  class=" form_input form-control" id="address_input" placeholder="Київ, вул. Спаська, 2">
+                                    <div class="message ">Введіть адресу</div>
                                 </div>
                             </div>
                         </div>
@@ -30,11 +33,11 @@
                     <div class="col-md-5 order_summary">
                         <div class="panel_warning">
                             <h4>Інформація про замовлення</h4>
-                            <p class="order-summery-time">
-                                <b>Приблизний час доставки:</b> невідомий
+                            <p class="order-summery-time" >
+                                <b>Приблизний час доставки:</b> <span id="summery_order_time">невідомий</span>
                             </p>
                             <p class="order-summery-address">
-                                <b>Адреса доставки:</b> невідома
+                                <b>Адреса доставки:</b> <span id="summery_order_address"> невідома</span>
                             </p>
                         </div>
                     </div>
@@ -43,12 +46,15 @@
             <div class="row">
                 <div class="next_step">
                     <div>
-                        <button type="button" class="btn btn-warning" id="next_step1">Далі
+                        <a class="btn btn-warning" id="next_step1">Далі
                             <span class="glyphicon glyphicon-chevron-right icon-white">
                                 </span>
-                        </button>
+                        </a>
                     </div>
                 </div>
+            </div>
+            <div class="google_maps" id="googleMap">
+
             </div>
         </div>
         <div class="right_panel">
@@ -62,10 +68,14 @@
                     <div class="col-xs-6"><h6 class="overall_sum_title">Сума замовлення</h6></div>
                     <div class="col-xs-6 ov_sum_div"><span id="overall_sum">0</span><span> грн.</span></div>
                 </div>
-                <div class="order"><button type="button" class="btn btn-default " id="change_order">Редагувати замовлення</button></div>
+                <div class="order"><a class="btn btn-default " id="change_order" href="http://localhost:5050/">Редагувати замовлення</a></div>
             </div>
         </div>
     </div>
 </div>
+
+<div id="liqPay"></div>
+<script	src="//static.liqpay.com/libjs/checkout.js">
+</script>
 
 <% include common/footer.ejs%>

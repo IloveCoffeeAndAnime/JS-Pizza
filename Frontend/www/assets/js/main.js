@@ -40,10 +40,141 @@ exports.createOrder = function(order_info, callback) {
     backendPost("/api/create-order/", order_info, callback);
 };
 
-exports.getOrderPage = function(callback) {
-    backendGet('/order.html',callback);
-};
+
 },{}],2:[function(require,module,exports){
+var PizzaOrder = require('./PizzaOrder');
+
+var map_div = document.getElementById('googleMap');
+var $address_input = $('#address_input');
+var $order_address= $('#summery_order_address');
+var $order_time = $('#summery_order_time');
+
+function initialize(){
+    var point = new google.maps.LatLng(50.464379,30.519131);
+    var mapProp = {
+        center: point,
+        zoom:15
+    };
+    var map = new google.maps.Map(map_div,mapProp);
+    var direction_service = new google.maps.DirectionsService();
+    var directions_display = new google.maps.DirectionsRenderer( { map:map, suppressMarkers:true} );
+
+    var pizza_marker = new google.maps.Marker({
+        position:point,
+        map:map,
+        icon:"assets/images/map-icon.png"
+    });
+
+    var house_marker = new google.maps.Marker({
+        position:null,
+        map:null,
+        icon:"assets/images/home-icon.png"
+    });
+
+    google.maps.event.addListener(map,'click',function(me){
+        var coordinates = me.latLng;
+        placeMarker(house_marker,coordinates,map);
+        geocodeLatLng(coordinates,showAddress);
+        calculateRoute(direction_service,point,coordinates,directions_display,showTimeAndRoute);
+    });
+
+    $address_input.bind('input propertychange',function(){
+        var address = $address_input.val();
+        $order_address.text(address);
+        geocodeAddress(address,function(err,coordinates){
+            if(!err) {
+                placeMarker(house_marker, coordinates, map);
+                calculateRoute(direction_service,point, coordinates,directions_display, showTimeAndRoute);
+            }});
+
+    });
+}
+
+function geocodeLatLng(coordinates,callback){
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({'location':coordinates}, function(results,status){
+        if(status === google.maps.GeocoderStatus.OK && results[1]){
+            var address = results[1].formatted_address;
+            console.log(results);
+            callback(null,address);
+        }
+        else{
+            callback(new Error("Address not found"));
+        }
+    });
+}
+
+function showAddress(err,address){
+    if(err){
+        $address_input.val(err.message);
+    }else{
+        $address_input.val(address);
+        $order_address.text(address);
+        PizzaOrder.setValid($order_address);
+    }
+}
+
+function geocodeAddress(address, callback){
+    var geocoder = new google.maps.Geocoder();
+    geocoder.geocode({'address':address}, function(results,status){
+        if(status === google.maps.GeocoderStatus.OK && results[0]){
+            var coordinates = results[0].geometry.location;
+            callback(null,coordinates);
+        }else{
+            callback(new Error('Address not found'));
+        }
+    });
+}
+
+function placeMarker(marker,coordinates,map){
+    marker.setPosition(coordinates);
+    marker.setMap(map);
+}
+
+function calculateRoute(direction_service, A_coordinates, B_coordinates,directions_display, callback){
+    direction_service.route({
+        origin: A_coordinates,
+        destination: B_coordinates,
+        travelMode: google.maps.TravelMode['DRIVING']
+    }, function(response,status){
+        if(status === google.maps.DirectionsStatus.OK){
+            callback(null, {response:response, directions_display:directions_display});
+            console.log(response);
+        } else{
+            callback(new Error('Direction not found'));
+        }
+    });
+}
+
+function showTimeAndRoute(err,result){
+    if(err){
+        $order_time.text('невідомий');
+    }else{
+        var time =result.response.routes[0].legs[0].duration.text;
+        $order_time.text(time);
+        result.directions_display.setDirections(result.response);
+    }
+}
+google.maps.event.addDomListener(window,'load',initialize);
+},{"./PizzaOrder":5}],3:[function(require,module,exports){
+function initLiqPay(data,signature){
+    LiqPayCheckout.init({
+        data:data,
+        signature: signature,
+        embedTo: "#liqPay",
+        mode: "popup"	//	embed	||	popup
+    }).on("liqpay.callback",	function(data){
+        console.log(data.status);
+        console.log(data);
+    }).on("liqpay.ready",	function(data){
+//	ready
+    }).on("liqpay.close",	function(data){
+//	close
+    });
+}
+
+exports.initLiqPay = initLiqPay;
+},{}],4:[function(require,module,exports){
 var basil = require("basil.js");
 
 basil = new basil();
@@ -55,11 +186,11 @@ exports.get = function(key){
 exports.set = function(key,value){
     return basil.set(key,value);
 };
-},{"basil.js":8}],3:[function(require,module,exports){
+},{"basil.js":10}],5:[function(require,module,exports){
 var Templates = require('./Templates');
 var API = require('./API');
-var Storage = require('./LocalStorage');
 var Cart = require('./pizza/PizzaCart');
+var LiqPay = require('./LiqPay');
 
 var $input_name=$('#name_input');
 var $number_input=$('#number_input');
@@ -82,8 +213,7 @@ function checkInputs(){
 
     $number_input.bind('input propertychange',function(){
         var val =$number_input.val();
-        console.log(val);
-        if(isNumber(val) && Number.parseInt(val)>=0)
+        if(isNumber(val))
             setValid($number_group);
         else
             setInvalid($number_group);
@@ -100,23 +230,30 @@ function checkInputs(){
 function setInvalid(element){
     element.addClass('has-error');
     element.removeClass('has-success');
+    element.find('.input_holder .message').show();
 }
 
 function setValid(element){
     element.addClass('has-success');
     element.removeClass('has-error');
+    element.find('.input_holder .message').hide();
 }
 
 function containsNumbers(string){
+    var val;
     for(var i=0;i<string.length;i++){
-        if(Number.parseInt(string[i])) return true;
+        val=Number.parseInt(string[i]);
+        if(val === val) return true;
     }
     return false;
 }
 
 function isNumber(val){
+    var numb=Number.parseInt(val[0]);
+    if(val[0] !=='+' && numb!==numb) return false;
     for(var i=1;i<val.length;i++){
-        if(!Number.parseInt(val[i])) return false;
+        numb=Number.parseInt(val[i]);
+        if(numb!==numb) return false;
     }
     return true;
 }
@@ -137,24 +274,46 @@ function showOneOrder(order_item){
 }
 
 function sendOrder(){
-    API.createOrder(OrderList,function(err,data){
+    var inf = {name:$input_name.val(),
+        number:$number_input.val(),
+        address:$address_input.val(),
+        orderList:OrderList
+    };
+    API.createOrder(inf,function(err,res){
         if(err)
             alert("Error while trying to send order to the server");
-        else
-            alert("Successfully sent:)");
-
+        else{
+            console.log("Successfully sent:)");
+            LiqPay.initLiqPay(res.data,res.signature);
+        }
     });
+}
+
+function everythingValid(){
+    var name= $input_name.val();
+    var number=$number_input.val();
+    var address=$address_input.val();
+  if (name==="" || containsNumbers(name))return false;
+  if (!isNumber(number)) return false;
+  if (address ==="") return false;
+    else return true;
 }
 
 function initializePage(){
     checkInputs();
     initializeOrderList();
+
     $nextBtn.click(function(){
-        sendOrder();
+        if(everythingValid()){
+            sendOrder();
+        }
     });
 }
+
 exports.initializePage=initializePage;
-},{"./API":1,"./LocalStorage":2,"./Templates":4,"./pizza/PizzaCart":6}],4:[function(require,module,exports){
+exports.setValid = setValid;
+exports.setInvalid =setInvalid;
+},{"./API":1,"./LiqPay":3,"./Templates":6,"./pizza/PizzaCart":8}],6:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -167,7 +326,7 @@ exports.PizzaMenu_OneItem = ejs.compile("<%\r\n\r\nfunction getIngredientsArray(
 exports.PizzaCart_OneItem = ejs.compile("<div>\r\n    <div class=\"pizza_order\">\r\n        <div class=\"pizza_inf container\">\r\n            <% var sizeStr;\r\n            if(size ==\"big_size\")\r\n                sizeStr=\"Велика\"\r\n            else\r\n                sizeStr=\"Мала\"%>\r\n            <h3 class=\"pizza_name\"><%= pizza.title %> (<%= sizeStr %>)</h3>\r\n            <div class=\"pizza_features row\">\r\n                <span class=\"col-xs-3\"><img src=\"assets/images/size-icon.svg\" class=\"icon\"><%= pizza[size].size %></span>\r\n                <span class=\"col-xs-4\"><img src=\"assets/images/weight.svg\" class=\"icon\"><%= pizza[size].weight %></span>\r\n            </div>\r\n            <div class=\"pizza_options row\">\r\n                <div class=\"price\"><span><%= pizza[size].price %> грн.</span></div>\r\n                <div class=\"plusMin\">\r\n                    <button type=\"button\" class=\"btn btn-danger minus\"><span class=\"glyphicon glyphicon-minus\"></span></button>\r\n                    <span class=\" quantity label\"><%= quantity %></span>\r\n                    <button type=\"button\" class=\"btn btn-success plus\"><span class=\"glyphicon glyphicon-plus\"></span></button>\r\n                </div>\r\n                <div class=\"remove_div\"><button type=\"button\" class=\"btn btn-default well remove\"><span class=\"glyphicon glyphicon-remove\"></span></button></div>\r\n            </div>\r\n        </div>\r\n        <div class=\"pizza_photo\"><img src=<%= pizza.icon%>></div>\r\n    </div>\r\n</div>\r\n");
 
 exports.PizzaOrder_OneItem = ejs.compile("<div>\r\n    <div class=\"pizza_order\">\r\n        <div class=\"pizza_inf container\">\r\n            <% var sizeStr;\r\n            if(size ==\"big_size\")\r\n                sizeStr=\"Велика\"\r\n            else\r\n                sizeStr=\"Мала\"%>\r\n            <h3 class=\"pizza_name\"><%= pizza.title %> (<%= sizeStr %>)</h3>\r\n            <div class=\"pizza_features row\">\r\n                <span class=\"col-xs-3\"><img src=\"assets/images/size-icon.svg\" class=\"icon\"><%= pizza[size].size %></span>\r\n                <span class=\"col-xs-4\"><img src=\"assets/images/weight.svg\" class=\"icon\"><%= pizza[size].weight %></span>\r\n            </div>\r\n            <div class=\"pizza_options row\">\r\n                <%var allPrice =pizza[size].price*quantity %>\r\n                <div class=\"price\"><span><%=allPrice %> грн.</span></div>\r\n                <div class=\"plusMin\">\r\n                    <span class=\" quantity label\"><%= quantity %></span>\r\n                </div>\r\n            </div>\r\n        </div>\r\n        <div class=\"pizza_photo\"><img src=<%= pizza.icon%>></div>\r\n    </div>\r\n</div>\r\n");
-},{"ejs":10}],5:[function(require,module,exports){
+},{"ejs":12}],7:[function(require,module,exports){
 /**
  * Created by chaika on 25.01.16.
  */
@@ -178,13 +337,14 @@ $(function(){
     var PizzaMenu = require('./pizza/PizzaMenu');
     var PizzaCart = require('./pizza/PizzaCart');
     var PizzaOrder = require('./PizzaOrder');
+    var GoogleMap = require('./GoogleMaps');
 
     PizzaCart.initialiseCart();
     PizzaMenu.initialiseMenu();
     PizzaCart.initializeClearCart();
     PizzaOrder.initializePage();
 });
-},{"./PizzaOrder":3,"./pizza/PizzaCart":6,"./pizza/PizzaMenu":7}],6:[function(require,module,exports){
+},{"./GoogleMaps":2,"./PizzaOrder":5,"./pizza/PizzaCart":8,"./pizza/PizzaMenu":9}],8:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
 + */
@@ -364,7 +524,7 @@ exports.initializeClearCart = initializeClearCart;
 exports.PizzaSize = PizzaSize;
 
 
-},{"../API":1,"../LocalStorage":2,"../Templates":4}],7:[function(require,module,exports){
+},{"../API":1,"../LocalStorage":4,"../Templates":6}],9:[function(require,module,exports){
 /**
  * Created by chaika on 02.02.16.
  */
@@ -495,7 +655,7 @@ function changeFilterTitle(filter_name, pizza_amount){
 
 exports.filterPizza = filterPizza;
 exports.initialiseMenu = initialiseMenu;
-},{"../API":1,"../Templates":4,"./PizzaCart":6}],8:[function(require,module,exports){
+},{"../API":1,"../Templates":6,"./PizzaCart":8}],10:[function(require,module,exports){
 (function () {
 	// Basil
 	var Basil = function (options) {
@@ -883,9 +1043,9 @@ exports.initialiseMenu = initialiseMenu;
 
 })();
 
-},{}],9:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 
-},{}],10:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1753,7 +1913,7 @@ if (typeof window != 'undefined') {
   window.ejs = exports;
 }
 
-},{"../package.json":12,"./utils":11,"fs":9,"path":13}],11:[function(require,module,exports){
+},{"../package.json":14,"./utils":13,"fs":11,"path":15}],13:[function(require,module,exports){
 /*
  * EJS Embedded JavaScript templates
  * Copyright 2112 Matthew Eernisse (mde@fleegix.org)
@@ -1919,7 +2079,7 @@ exports.cache = {
   }
 };
 
-},{}],12:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 module.exports={
   "_args": [
     [
@@ -2034,7 +2194,7 @@ module.exports={
   "version": "2.5.7"
 }
 
-},{}],13:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
 (function (process){
 // Copyright Joyent, Inc. and other Node contributors.
 //
@@ -2262,7 +2422,7 @@ var substr = 'ab'.substr(-1) === 'b'
 ;
 
 }).call(this,require('_process'))
-},{"_process":14}],14:[function(require,module,exports){
+},{"_process":16}],16:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -2448,4 +2608,4 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}]},{},[5]);
+},{}]},{},[7]);

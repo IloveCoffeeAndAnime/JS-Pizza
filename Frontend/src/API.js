@@ -39,6 +39,3 @@ exports.createOrder = function(order_info, callback) {
     backendPost("/api/create-order/", order_info, callback);
 };
 
-exports.getOrderPage = function(callback) {
-    backendGet('/order.html',callback);
-};

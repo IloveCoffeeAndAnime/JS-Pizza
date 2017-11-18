@@ -10,8 +10,6 @@
   overflow-x: hidden;
   background-color: #F5F5F5;
   box-shadow: rgba(0,0,0,.2) -3px 3px 10px;
- // display: flex;
- // flex-flow: column;
   z-index: 1000;
 
   .right_panel_top{
@@ -21,7 +19,6 @@
     width:@right_panel_width;
     padding-top:15px;
     background-color: white;
-   // flex:0 1 @fixed_div_height;
 
     h4{
       display: inline-block;
@@ -62,7 +59,7 @@
 
     .order{
       text-align: center;
-      button{
+      a{
         width:@right_panel_width*0.75;
 
       }
@@ -75,55 +72,5 @@
     margin-top: @fixed_div_height;
     margin-bottom: @fixed_div_height*1.5;
     padding: 0;
-    //flex:0 1 auto;
-
-    //.pizza_order {
-    //  position: relative;
-    //  height: @pizza_order_height;
-    //  width: @right_panel_width;
-    //  border-bottom: 1px solid darken(@mainGrey, 10%);
-    //
-    //  .pizza_inf {
-    //    width: 70%;
-    //    margin: 0;
-    //    .pizza_name {
-    //      color: darken(@mainColor, 10%);
-    //    }
-    //    .pizza_features {
-    //      img {
-    //        height: @icon_size;
-    //        width: @icon_size;
-    //      }
-    //    }
-    //  }
-    //
-    //  .pizza_options {
-    //
-    //    h5 {
-    //      display: inline-block;
-    //      font-weight: bold;
-    //    }
-    //
-    //    button {
-    //      border-radius: 100%;
-    //      padding: 6px 8px 6px 8px;
-    //      span {
-    //        font-size: 14px;
-    //        text-align: center;
-    //      }
-    //    }
-    //    .remove_btn {
-    //      color: @mainColor;
-    //    }
-    //  }
-    //  .pizza_photo {
-    //    position: absolute;
-    //    right: -@right_panel_width*0.15;
-    //    top: 0;
-    //    img {
-    //      height: @pizza_order_height;
-    //    }
-    //  }
-    //}
   }
 }
